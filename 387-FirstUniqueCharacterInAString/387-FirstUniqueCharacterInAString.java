@@ -1,0 +1,16 @@
+// Last updated: 8/14/2025, 3:46:16 PM
+class Solution {
+    public int firstUniqChar(String s) {
+        int a[]=new int[26];
+        for(int i=0;i<s.length();i++){
+            a[(s.charAt(i))-97]++;
+        }
+       for(int i=0;i<s.length();i++){
+        if(a[(s.charAt(i))-97]==1){
+            return i;
+        }
+       }
+       return -1;
+        
+    }
+}
