@@ -1,4 +1,4 @@
-// Last updated: 8/15/2025, 5:20:58 PM
+// Last updated: 8/15/2025, 5:27:41 PM
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -19,21 +19,15 @@ class Solution {
         }
         TreeNode a=null;
         TreeNode b=null;
-        if(root.val>p.val ||root.val>q.val)
-            a=lowestCommonAncestor(root.left,p,q);
-        if(root.val<p.val ||root.val<q.val)
-            b=lowestCommonAncestor(root.right,p,q); 
-        
-         if(a!=null && b !=null){
-            return root;
+        if(root.val>p.val && root.val>q.val){
+             return lowestCommonAncestor(root.left,p,q);
         }
-        else if(a==null){
-            return b;
+       else if(root.val<p.val && root.val<q.val){
+             return lowestCommonAncestor(root.right,p,q);
         }
-        else{
-            return a;
-        }
-        
+       else{
+        return root;
+       }
         
     }
 }
