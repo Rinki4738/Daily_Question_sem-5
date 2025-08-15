@@ -1,4 +1,4 @@
-// Last updated: 8/15/2025, 4:52:39 PM
+// Last updated: 8/15/2025, 4:57:44 PM
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -9,47 +9,27 @@
  * }
  */
 class Solution {
-    class Pair{
-        TreeNode node;
-        boolean contain=false;
-
-    }
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        return func(root,p,q).node;
-        
-    }
-    public Pair func(TreeNode root, TreeNode p, TreeNode q){
         if(root==null){
-            return new Pair(); 
+            return null;
         }
-         if(root.val==p.val||root.val==q.val){
-            Pair pp= new Pair();
-            pp.node=root;
-            pp.contain=true;
-            return pp;
-
+        if(root==p ||root==q){
+            return root;
         }
-        if(root.left==null && root.right==null){
-            return new Pair();
-        }
-       
 
 
-       Pair left=func(root.left,p,q);
-        Pair right=func(root.right,p,q);
-        Pair nn=new Pair();
-        if(left.contain && right.contain){
-            nn.node=root;
+        TreeNode left= lowestCommonAncestor(root.left,p,q);
+        TreeNode right= lowestCommonAncestor(root.right,p,q);
+        if(left!=null && right !=null){
+            return root;
         }
-       else if(left.contain){
-        nn.node=left.node;
-       }
-       else if(right.contain){
-         nn.node=right.node;
-       }
+        else if(left==null){
+            return right;
+        }
+        else{
+            return left;
+        }
+
         
-        nn.contain=left.contain || right.contain;
-        return nn;
-
     }
 }
