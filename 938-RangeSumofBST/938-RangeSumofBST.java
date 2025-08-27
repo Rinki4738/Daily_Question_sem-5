@@ -1,4 +1,4 @@
-// Last updated: 8/27/2025, 9:18:30 PM
+// Last updated: 8/27/2025, 9:21:28 PM
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -15,21 +15,22 @@
  * }
  */
 class Solution {
-    int sum=0;
     public int rangeSumBST(TreeNode root, int low, int high) {
-        func(root,low,high);
-        return sum;
-        
-    }
-    public void func(TreeNode root, int low, int high){
-        if(root==null){
-            return;
-        }
-         func(root.left, low,high);
-        if(root.val>=low && root.val<=high){
-            sum+=root.val;
-        }
-        func(root.right,low,high);
+        int rangeSum = 0;
 
+        if (root == null)
+            return rangeSum;
+        
+        if (root.val >= low && root.val <= high) {
+            rangeSum += root.val;
+            rangeSum += rangeSumBST(root.left, low, high);
+            rangeSum += rangeSumBST(root.right, low, high);
+        }
+        if (root.val < low)
+            rangeSum += rangeSumBST(root.right, low, high);
+        if (root.val > high)
+            rangeSum += rangeSumBST(root.left, low, high);
+
+        return rangeSum;
     }
 }
