@@ -1,36 +1,33 @@
-// Last updated: 8/14/2025, 3:49:06 PM
+// Last updated: 8/28/2025, 11:20:25 AM
 class Solution {
     public List<List<String>> groupAnagrams(String[] strs) {
-        ArrayList<String> a=new ArrayList<>();
-        List<List<String>> res=new ArrayList<>();
-        int num[]=new int[strs.length];
-        for(int i=0;i<strs.length;i++){
-            if(num[i]==0){
-            a.add(strs[i]);
-            for(int j=i+1;j<strs.length;j++){
-                if(num[j]==0 && isAnagram(strs[i],strs[j])){
-                    a.add(strs[j]);
-                    num[j]++;
-                }
+            List<List<String>> ans=new ArrayList<>();
+
+            HashMap<String,List<String>> map= new HashMap<>();
+            for(int i=0;i<strs.length;i++){
+                String key=GetKey(strs[i]);
+            
+            if(!map.containsKey(key)){
+                map.put(key,new ArrayList<>());
             }
-           // System.out.println(a);
-            res.add(new ArrayList<>(a));
-            a.clear();
-           
-        }}
-        return res;
+            map.get(key).add(strs[i]);}
+            for(String a:map.keySet()){
+                ans.add(map.get(a));
+            }
+            return ans;
         
     }
-    public static boolean isAnagram(String s, String t) {
-        if(s.length()!=t.length()){
-            return false;
+    public static String GetKey(String s){
+        int freq[]=new int[26];
+        for(int i=0;i<s.length();i++){
+            char ch=s.charAt(i);
+            freq[ch-'a']++;
         }
-        char a[]=s.toCharArray();
-         char b[]=t.toCharArray();
-         Arrays.sort(a);
-         Arrays.sort(b);
-         return (Arrays.equals(a,b));
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<26;i++){
+            sb.append(freq[i]+" ");
+        }
+        return sb.toString();
 
-        
     }
 }
