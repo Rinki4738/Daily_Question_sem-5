@@ -1,32 +1,24 @@
-// Last updated: 8/30/2025, 3:56:06 PM
+// Last updated: 8/30/2025, 4:40:41 PM
 class Solution {
      
 
     public int rob(int[] nums) {
         int dp[]=new int[nums.length];
-        for(int i=0;i<dp.length;i++){
-            dp[i]=-1;
+        dp[0]=nums[0];
+        int max=Integer.MIN_VALUE;
+        for(int i=1;i<nums.length;i++){
+            int pick=nums[i];
+            if(i-2>=0)
+            pick=dp[i-2]+nums[i];
+            int not_pick=dp[i-1];
+            dp[i]=Math.max(pick,not_pick);
+
         }
-        return func(nums,nums.length-1,dp);
+        return dp[nums.length-1];
        
         
         
     }
    
-    public int func(int nums[],int idx,int dp[]){
-        if(idx==0){
-            return nums[0];
-        }
-        if(idx<0){
-            return 0;
-        }
-        if(dp[idx]!=-1){
-            return dp[idx];
-        }
-       int pick=func(nums,idx-2,dp)+nums[idx];
-       int not_pick=func(nums,idx-1,dp)+0;
-
-       return dp[idx]=Math.max(pick,not_pick);
-
-    }
+   
 }
